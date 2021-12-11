@@ -52,7 +52,7 @@ public class Modify extends AppCompatActivity {
                 dbHelper2.updatePrice(sub_text, "6", et6.getText().toString());
                 dbHelper2.updatePrice(sub_text, "12", et12.getText().toString());
                 dbHelper2.updatePrice(sub_text, "pt", pt.getText().toString());
-                Intent intent2 = new Intent(Modify.this, Information.class);
+                Intent intent2 = new Intent(Modify.this, Info.class);
                 intent2.putExtra("이름2", sub_text); //'이름2'라는 이름으로 main_text 전달
                 startActivity(intent2);
             }
