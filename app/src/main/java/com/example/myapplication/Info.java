@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +22,9 @@ public class Info extends AppCompatActivity {
     TextView center_name;
     ListView program_list;
     ListView equipment_list;
+    Button editProgram;
+    Button editEquipment;
+    Button writeReview;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,9 @@ public class Info extends AppCompatActivity {
         center_name = findViewById(R.id.center_name);
         program_list = findViewById(R.id.program_list);
         equipment_list = findViewById(R.id.equipment_list);
+        editProgram = findViewById(R.id.editProgram);
+        editEquipment = findViewById(R.id.editEquipment);
+        writeReview = findViewById(R.id.review);
 
         Intent intent = getIntent();
         int center_id = intent.getExtras().getInt("center_id");
@@ -63,5 +71,28 @@ public class Info extends AppCompatActivity {
         setSupportActionBar(toolbar2);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
         getSupportActionBar().setTitle(center_name_str); // 툴바 제목 설정
+
+        editProgram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        editEquipment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), EditEquipment.class);
+                intent.putExtra("center_id",center_id);
+                startActivity(intent);
+            }
+        });
+
+        writeReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }

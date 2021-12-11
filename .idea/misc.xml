@@ -5,13 +5,16 @@
       <map>
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_adddata.xml" value="0.2078804347826087" />
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_db.xml" value="0.24365942028985507" />
+        <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_editequipment.xml" value="0.1921875" />
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_editprogram.xml" value="0.24365942028985507" />
+        <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_equipment.xml" value="0.1921875" />
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_info.xml" value="0.22780797101449277" />
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_login.xml" value="0.2390625" />
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_modify.xml" value="0.21557971014492755" />
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_newcenter.xml" value="0.2" />
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_signup.xml" value="0.264" />
+        <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/eqmodi_listview.xml" value="0.1" />
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/equipment_listview.xml" value="0.1875" />
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/info_listview.xml" value="0.1585144927536232" />
         <entry key="..\:/Users/15Z980-GA5BK/AndroidStudioProjects/MyApplication/app/src/main/res/layout/program_listview.xml" value="0.1" />
