@@ -14,38 +14,50 @@ class DBHelper2 extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE INFO(center_id NUM, NAME TEXT, Period TEXT, PerPrice TEXT)");
+        db.execSQL("CREATE TABLE program(center_id NUM, pg_id NUM, NAME TEXT, Period TEXT, PerPrice NUM)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS Price");
+        db.execSQL("DROP TABLE IF EXISTS program");
         onCreate(db);
     }
 
-    public void insertPrice(Integer id, String name, String period, String price) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO Price VALUES("+ id +",'" + name + "', '" + period + "', '" + price + "')");
+    public void insertProgram(int center_id, String name, String period, int price) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM program", null);
+        cursor.moveToFirst();
+        int n = cursor.getInt(0);
+        int id;
+        for(id=0;id<n;id++){
+            cursor = db.rawQuery("SELECT EXISTS(SELECT 1 FROM program WHERE (center_id = "+center_id+" & pg_id = "+id+"))", null);
+            cursor.moveToFirst();
+            if(cursor.getInt(0) == 0){ //id가 id인 행이 없을때
+                break;
+            }
+        }
+        db = getWritableDatabase();
+        db.execSQL("INSERT INTO program VALUES("+ center_id +","+id+",'" + name + "', '" + period + "', '" + price + "')");
         db.close();
     }
 
 
-    public void updatePrice(String name, String period, String price) {
+    public void updateProgram(int center_id, int pg_id, int price) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE Price SET PerPrice = '" + price + "' " + " WHERE NAME = '" + name + "' AND Period = '" + period + "'");
+        db.execSQL("UPDATE program SET PerPrice = '" + price + "' " + " WHERE center_id = "+center_id+" AND pg_id = " + pg_id + "");
         db.close();
     }
 
-    public void deletePrice(String name) {
+    public void deleteProgram(int center_id, int pg_id) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM Price WHERE NAME = '" + name + "'");
+        db.execSQL("DELETE FROM program WHERE center_id = " + center_id + " AND pg_id = "+pg_id+"");
         db.close();
     }
 
-    public String getPerPrice(String name, String period){
+    public String getPerPrice(int center_id, int pg_id){
         SQLiteDatabase db = getWritableDatabase();
         String id = null;
-        String sql = "select * from Price where NAME='"+name+"' AND Period='"+period+"'";//이름과 기간을 받아서 해당하는 가격을 받아온다
+        String sql = "select * from program where center_id="+center_id+" AND pg_id="+pg_id+"";
         Cursor cursor = db.rawQuery(sql,null);
         while (cursor.moveToNext()) {
             id = cursor.getString(2);

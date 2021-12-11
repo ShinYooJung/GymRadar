@@ -19,7 +19,7 @@ public class Modify extends AppCompatActivity {
     EditText et12;
     EditText pt;
     TextView tv;
-    String sub_text;
+    int sub_text;
     DBHelper2 dbHelper2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +40,14 @@ public class Modify extends AppCompatActivity {
         pt = findViewById(R.id.pt);
         tv = findViewById(R.id.textView);
         Intent intent = getIntent();//DB에서 보낸 intent를 받는다
-        sub_text = intent.getStringExtra("이름");
+        sub_text = intent.getIntExtra("center_id", 0);
 
         dbHelper2 = new DBHelper2(Modify.this, 1);
         tv.setText(sub_text);
         btnModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbHelper2.updatePrice(sub_text, "1", et1.getText().toString());
-                dbHelper2.updatePrice(sub_text, "3", et3.getText().toString());
-                dbHelper2.updatePrice(sub_text, "6", et6.getText().toString());
-                dbHelper2.updatePrice(sub_text, "12", et12.getText().toString());
-                dbHelper2.updatePrice(sub_text, "pt", pt.getText().toString());
+                //dbHelper2.updateProgram(sub_text, "1", et1.getText().toString());
                 Intent intent2 = new Intent(Modify.this, Info.class);
                 intent2.putExtra("이름2", sub_text); //'이름2'라는 이름으로 main_text 전달
                 startActivity(intent2);

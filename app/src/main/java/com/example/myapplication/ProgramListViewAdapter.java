@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListViewAdapter extends BaseAdapter {
-    ArrayList<ListViewAdapterData> list = new ArrayList<ListViewAdapterData>();
+public class ProgramListViewAdapter extends BaseAdapter {
+    ArrayList<ProgramListViewAdapterData> list = new ArrayList<ProgramListViewAdapterData>();
 
     @Override
     public int getCount() {
@@ -37,28 +37,31 @@ public class ListViewAdapter extends BaseAdapter {
         //아이템이 없다면 아래처럼 아이템 레이아웃을 인플레이트 하고 view객체에 담는다.
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.info_listview,viewGroup,false);
+            view = inflater.inflate(R.layout.program_listview,viewGroup,false);
         }
 
         //이제 아이템에 존재하는 텍스트뷰 객체들을 view객체에서 찾아 가져온다
-        TextView tvName = (TextView)view.findViewById(R.id.info_name);
-        TextView tvCost = (TextView)view.findViewById(R.id.info_cost);
+        TextView tvName = (TextView)view.findViewById(R.id.pg_name);
+        TextView tvPeriod = (TextView)view.findViewById(R.id.pg_period);
+        TextView tvCost = (TextView)view.findViewById(R.id.pg_cost);
 
         //현재 포지션에 해당하는 아이템에 글자를 적용하기 위해 list배열에서 객체를 가져온다.
-        ListViewAdapterData listdata = list.get(i);
+        ProgramListViewAdapterData listdata = list.get(i);
 
         //가져온 객체안에 있는 글자들을 각 뷰에 적용한다
         tvName.setText(listdata.getName());
+        tvPeriod.setText(listdata.getPeriod());
         tvCost.setText(Integer.toString(listdata.getCost())); //원래 int형이라 String으로 형 변환
 
         return view;
     }
 
     //ArrayList로 선언된 list 변수에 목록을 채워주기 위함 다른방시으로 구현해도 됨
-    public void addItemToList(String name, int cost){
-        ListViewAdapterData listdata = new ListViewAdapterData();
+    public void addItemToList(String name, String period, int cost){
+        ProgramListViewAdapterData listdata = new ProgramListViewAdapterData();
 
         listdata.setName(name);
+        listdata.setPeriod(period);
         listdata.setCost(cost);
 
         //값들의 조립이 완성된 listdata객체 한개를 list배열에 추가

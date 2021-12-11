@@ -13,10 +13,11 @@ import androidx.appcompat.widget.Toolbar;
 public class Info extends AppCompatActivity {
     SQLiteDatabase sqlDB;
     SQLiteDatabase programDB;
+    SQLiteDatabase equipmentDB;
     DBHelper centerDBHelper;
     DBHelper2 programDBHelper;
+    DBHelper3 equipmentDBHelper;
     TextView center_name;
-    TextView center_address;
     ListView program_list;
     ListView equipment_list;
 
@@ -25,33 +26,35 @@ public class Info extends AppCompatActivity {
         setContentView(R.layout.activity_info);
 
         center_name = findViewById(R.id.center_name);
-        center_address = findViewById(R.id.center_address);
         program_list = findViewById(R.id.program_list);
         equipment_list = findViewById(R.id.equipment_list);
 
         Intent intent = getIntent();
-        String center_id = intent.getExtras().getString("center_id");
+        int center_id = intent.getExtras().getInt("center_id");
 
         //DB에서 정보 받아오기
+        centerDBHelper = new DBHelper(this, 1);
         sqlDB = centerDBHelper.getReadableDatabase();
-        Cursor cursor = sqlDB.rawQuery("SELECT * FROM CENTER WHERE id = " + center_id, null);
+        Cursor cursor = sqlDB.rawQuery("SELECT * FROM TrainingCenter WHERE id = " + center_id +"", null);
+        cursor.moveToFirst();
         String center_name_str = cursor.getString(1);
-        String center_address_str = cursor.getString(2);
         center_name.setText(center_name_str);
-        center_address.setText(center_address_str);
 
+        programDBHelper = new DBHelper2(this, 1);
         programDB = programDBHelper.getReadableDatabase();
-        cursor = programDB.rawQuery("SELECT * FROM INFO WHERE (id = "+center_id+")&()", null);
-        ListViewAdapter program_adapter = new ListViewAdapter();
+        cursor = programDB.rawQuery("SELECT * FROM program WHERE center_id = "+center_id+"", null);
+        ProgramListViewAdapter program_adapter = new ProgramListViewAdapter();
         while(cursor.moveToNext()){
-            program_adapter.addItemToList(cursor.getString(0), cursor.getInt(1));
+            program_adapter.addItemToList(cursor.getString(2),cursor.getString(3), cursor.getInt(4));
         }
         program_list.setAdapter(program_adapter);
 
-        cursor = programDB.rawQuery("SELECT * FROM INFO WHERE id = " + center_id, null);
-        ListViewAdapter equipment_adapter = new ListViewAdapter();
+        equipmentDBHelper = new DBHelper3(this, 1);
+        equipmentDB = equipmentDBHelper.getReadableDatabase();
+        cursor = equipmentDB.rawQuery("SELECT * FROM equipment WHERE center_id = " + center_id +"", null);
+        EquipmentListViewAdapter equipment_adapter = new EquipmentListViewAdapter();
         while(cursor.moveToNext()){
-            equipment_adapter.addItemToList(cursor.getString(0), cursor.getInt(1));
+            equipment_adapter.addItemToList(cursor.getString(2), cursor.getInt(3));
         }
         equipment_list.setAdapter(equipment_adapter);
 
@@ -60,7 +63,5 @@ public class Info extends AppCompatActivity {
         setSupportActionBar(toolbar2);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
         getSupportActionBar().setTitle(center_name_str); // 툴바 제목 설정
-
-
     }
 }
